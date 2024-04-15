@@ -24,12 +24,19 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.csit228f2_2.MySQLConnector.getConnection;
 
 public class HelloApplication extends Application {
     public static List<User> users;
     public static void main(String[] args) {
+        getConnection();
         launch();
     }
 
@@ -99,6 +106,7 @@ public class HelloApplication extends Application {
             }
         });
 
+        //button sign in
         Button btnSignIn = new Button("Sign In");
         btnSignIn.setFont(Font.font(45));
         HBox hbSignIn = new HBox();
@@ -109,25 +117,62 @@ public class HelloApplication extends Application {
         actionTarget.setFont(Font.font(30));
         grid.add(actionTarget, 1, 6);
 
+        //button log in
+        Button btnLogIn = new Button("Log In");
+        btnSignIn.setFont(Font.font(45));
+        HBox hbLogIn = new HBox();
+        hbLogIn.getChildren().add(btnLogIn);
+        hbLogIn.setAlignment(Pos.CENTER);
+        grid.add(hbLogIn, 0, 3, 2, 1);
+//        final Text actionTarget = new Text("Hi");
+//        actionTarget.setFont(Font.font(30));
+//        grid.add(actionTarget, 1, 6);
+
         btnSignIn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 String username = tfUsername.getText();
                 String password = pfPassword.getText();
-                for (User user : users) {
-                    if (username.equals(user.username) && password.equals(user.password)) {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
-                        try {
-                            Scene scene = new Scene(loader.load());
-                            stage.setScene(scene);
-                            stage.show();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+                //try block can have this kind of condition para diretso ra siyag catch
+                try(Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
+                        "INSERT INTO users (name, password) VALUES (?, ?)"
+                )) {
+                    //insert thy data
+                    st.setString(1, username);
+                    st.setString(2, password);
+
+                    //para ma-upload sa db
+                    int rowsInserted = st.executeUpdate();
+
+                    //check if ang rows kay dili null
+                    if(rowsInserted > 0){
+                        //extra message
+                        System.out.println("insertion g");
                     }
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
+//                for (User user : users) {
+//                    if (username.equals(user.username) && password.equals(user.password)) {
+//                        FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+//                        try {
+//                            Scene scene = new Scene(loader.load());
+//                            stage.setScene(scene);
+//                            stage.show();
+//                        } catch (IOException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                    }
+//                }
                 actionTarget.setText("Invalid username/password");
                 actionTarget.setOpacity(1);
+            }
+        });
+
+        btnLogIn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
             }
         });
 
