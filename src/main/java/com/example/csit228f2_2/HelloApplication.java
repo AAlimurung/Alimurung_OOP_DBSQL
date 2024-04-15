@@ -35,19 +35,20 @@ import static com.example.csit228f2_2.MySQLConnector.getConnection;
 
 public class HelloApplication extends Application {
     public static List<User> users;
+
     public static void main(String[] args) {
         getConnection();
         launch();
+        //createTbl.create();
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        users = new ArrayList<>();
-        // LOAD USERS
-        users.add(new User("tsgtest", "123456"));
-        users.add(new User("jayvince", "secret"));
-        users.add(new User("russselll", "palma"));
-
+//        users = new ArrayList<>();
+//        // LOAD USERS
+//        users.add(new User("tsgtest", "123456"));
+//        users.add(new User("jayvince", "secret"));
+//        users.add(new User("russselll", "palma"));
         AnchorPane pnMain = new AnchorPane();
         GridPane grid = new GridPane();
         pnMain.getChildren().add(grid);
@@ -87,7 +88,6 @@ public class HelloApplication extends Application {
         grid.add(tfPassword, 1, 2);
         tfPassword.setVisible(false);
         grid.add(hbShow, 2, 2);
-
         btnShow.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent actionEvent) {
@@ -106,6 +106,9 @@ public class HelloApplication extends Application {
             }
         });
 
+        String username = tfUsername.getText();
+        String password = pfPassword.getText();
+
         //button sign in
         Button btnSignIn = new Button("Sign In");
         btnSignIn.setFont(Font.font(45));
@@ -118,21 +121,19 @@ public class HelloApplication extends Application {
         grid.add(actionTarget, 1, 6);
 
         //button log in
-        Button btnLogIn = new Button("Log In");
+        Button btnSignUp = new Button("Sign Up");
         btnSignIn.setFont(Font.font(45));
-        HBox hbLogIn = new HBox();
-        hbLogIn.getChildren().add(btnLogIn);
-        hbLogIn.setAlignment(Pos.CENTER);
-        grid.add(hbLogIn, 0, 3, 2, 1);
-//        final Text actionTarget = new Text("Hi");
-//        actionTarget.setFont(Font.font(30));
-//        grid.add(actionTarget, 1, 6);
+        hbSignIn.getChildren().add(btnSignUp);
+        hbSignIn.setAlignment(Pos.CENTER);
 
+//-------------RETRIEVE DATA-------------
+        //sign in kay log in, so retrieval gagi
         btnSignIn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 String username = tfUsername.getText();
                 String password = pfPassword.getText();
+
                 //try block can have this kind of condition para diretso ra siyag catch
                 try(Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
                         "INSERT INTO users (name, password) VALUES (?, ?)"
@@ -152,6 +153,10 @@ public class HelloApplication extends Application {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+
+                actionTarget.setText("Invalid username/password");
+                actionTarget.setOpacity(1);
+
 //                for (User user : users) {
 //                    if (username.equals(user.username) && password.equals(user.password)) {
 //                        FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
@@ -164,12 +169,14 @@ public class HelloApplication extends Application {
 //                        }
 //                    }
 //                }
+
                 actionTarget.setText("Invalid username/password");
                 actionTarget.setOpacity(1);
             }
         });
-
-        btnLogIn.setOnAction(new EventHandler<ActionEvent>() {
+//-------------INSERT DATA-------------
+        //sa kani kay log in, pero sign up siya, so inserting record TT
+        btnSignUp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
 

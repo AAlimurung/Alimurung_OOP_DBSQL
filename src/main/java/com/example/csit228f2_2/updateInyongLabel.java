@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class updateInyongLabel {
-    public static void main(String[] args) {
+    public static void updateData(){
         //try block can have this kind of condition para diretso ra siyag catch
         try(Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
                 "UPDATE users SET name = ?, email = ? WHERE id = ?"
@@ -32,4 +32,7 @@ public class updateInyongLabel {
             e.printStackTrace();
         }
     }
+//    public static void main(String[] args) {
+//
+//    }
 }

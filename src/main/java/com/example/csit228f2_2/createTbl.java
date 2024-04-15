@@ -1,4 +1,4 @@
-package Apr15;
+package com.example.csit228f2_2;
 
 import com.example.csit228f2_2.MySQLConnector;
 
@@ -7,15 +7,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class createTbl {
-    public static void main(String[] args) {
+    public static void create(){
         //try block can have this kind of condition para diretso ra siyag catch
         try(Connection c = MySQLConnector.getConnection(); Statement st = c.createStatement()) {
 
             //create thy query
-            String createTblQuery = "CREATE TABLE IF NOT EXISTS users (" +
+            String createTblQuery = "CREATE TABLE IF NOT EXISTS statUsers (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY," +
-                    "name VARCHAR(50) NOT NULL," +
-                    "email VARCHAR(50) NOT NULL)";
+                    "username VARCHAR(50) NOT NULL," +
+                    "password VARCHAR(250) NOT NULL)";
 
             //execute query
             st.execute(createTblQuery);
@@ -25,4 +25,5 @@ public class createTbl {
             e.printStackTrace();
         }
     }
+//    public static void main(String[] args) {}
 }
