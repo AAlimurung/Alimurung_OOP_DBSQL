@@ -36,12 +36,12 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         getConnection();
         launch();
-        //createTbl.create();
+        createTbl.create();
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-//        users = new ArrayList<>();
+        users = new ArrayList<>();
 //        // LOAD USERS
 //        users.add(new User("tsgtest", "123456"));
 //        users.add(new User("jayvince", "secret"));
@@ -128,19 +128,20 @@ public class HelloApplication extends Application {
         btnSignIn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                //try block can have this kind of condition para diretso ra siyag catch
-                try(Connection c = MySQLConnector.getConnection(); Statement st = c.createStatement()) {
-                    String selectaQuery = "SELECT * FROM statusers";
-                    ResultSet report = st.executeQuery(selectaQuery);
+                String username = tfUsername.getText();
+                String password = pfPassword.getText();
 
-                    //print tanan data through iteration
-                    while(report.next()){
-                        int id = report.getInt("id");
+                if(retrieveThyBlessings.ifValid(username, password)>0){
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+                        try {
+                            Scene scene = new Scene(loader.load());
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
-                } catch (SQLException e) {
-                    e.printStackTrace();
                 }
-            }
         });
 
 //-------------INSERT DATA-------------
@@ -175,6 +176,9 @@ public class HelloApplication extends Application {
             }
         });
 
+        //---------------UPDATE--------------
+
+//---------------DELETE--------------
         EventHandler<KeyEvent> fieldChange = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent actionEvent) {
