@@ -8,7 +8,7 @@ public class retrieveThyBlessings {
     public static void retrieveData(){
         //try block can have this kind of condition para diretso ra siyag catch
         try(Connection c = MySQLConnector.getConnection(); Statement st = c.createStatement()) {
-            String selectaQuery = "SELECT * FROM users";
+            String selectaQuery = "SELECT * FROM statusers";
             ResultSet report = st.executeQuery(selectaQuery);
 
             //print tanan data through iteration

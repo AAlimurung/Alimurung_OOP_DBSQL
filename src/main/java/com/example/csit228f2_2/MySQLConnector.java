@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MySQLConnector {
-    private static final String URL = "jdbc:mysql://localhost/alimurung_javadb";
+    private static final String URL = "jdbc:mysql://localhost:3306/alimurung_javadb";
     //not yet declared
     private static final String USERNAME = "anais";
     private static final String PASSWORD = "092223_aa";

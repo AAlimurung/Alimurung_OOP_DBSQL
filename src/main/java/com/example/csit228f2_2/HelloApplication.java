@@ -24,10 +24,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,12 +128,32 @@ public class HelloApplication extends Application {
         btnSignIn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                //try block can have this kind of condition para diretso ra siyag catch
+                try(Connection c = MySQLConnector.getConnection(); Statement st = c.createStatement()) {
+                    String selectaQuery = "SELECT * FROM statusers";
+                    ResultSet report = st.executeQuery(selectaQuery);
+
+                    //print tanan data through iteration
+                    while(report.next()){
+                        int id = report.getInt("id");
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+//-------------INSERT DATA-------------
+        //sa kani kay log in, pero sign up siya, so inserting record TT
+        btnSignUp.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
                 String username = tfUsername.getText();
                 String password = pfPassword.getText();
 
                 //try block can have this kind of condition para diretso ra siyag catch
                 try(Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
-                        "INSERT INTO users (name, password) VALUES (?, ?)"
+                        "INSERT INTO statusers (username, password) VALUES (?, ?)"
                 )) {
                     //insert thy data
                     st.setString(1, username);
@@ -153,33 +170,8 @@ public class HelloApplication extends Application {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-
-                actionTarget.setText("Invalid username/password");
+                actionTarget.setText("Successfully registered");
                 actionTarget.setOpacity(1);
-
-//                for (User user : users) {
-//                    if (username.equals(user.username) && password.equals(user.password)) {
-//                        FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
-//                        try {
-//                            Scene scene = new Scene(loader.load());
-//                            stage.setScene(scene);
-//                            stage.show();
-//                        } catch (IOException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                    }
-//                }
-
-                actionTarget.setText("Invalid username/password");
-                actionTarget.setOpacity(1);
-            }
-        });
-//-------------INSERT DATA-------------
-        //sa kani kay log in, pero sign up siya, so inserting record TT
-        btnSignUp.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-
             }
         });
 

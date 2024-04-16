@@ -9,7 +9,7 @@ public class insertSaBrain {
     public static void insertData(){
         //try block can have this kind of condition para diretso ra siyag catch
         try(Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
-                "INSERT INTO users (name, password) VALUES (?, ?)"
+                "INSERT INTO statusers (username, password) VALUES (?, ?)"
         )) {
 //            String name = "Ree Ash";
 //            String email = "ironoshizuku@gmail.com";

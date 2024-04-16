@@ -10,11 +10,11 @@ public class deleteYourStorage {
     public static void main(String[] args) {
         //try block can have this kind of condition para diretso ra siyag catch
         try(Connection c = MySQLConnector .getConnection(); PreparedStatement st = c.prepareStatement(
-                "DELETE FROM users WHERE id = ?"
+                "DELETE FROM users WHERE username = ?"
         )) {
-            int aidee2Delete = 2;
+            int usernameToDelete = 2;
             //delete thy data
-            st.setInt(1, aidee2Delete);
+            st.setInt(1, usernameToDelete);
 
             //for updating data later
             int rowsDeleted = st.executeUpdate();
