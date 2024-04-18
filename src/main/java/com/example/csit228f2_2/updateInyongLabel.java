@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class updateInyongLabel {
     public static void updateData(){
-        //try block can have this kind of condition para diretso ra siyag catch
+        //try block can have this kind of condition para auto-close
         try(Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
                 "UPDATE users SET name = ?, email = ? WHERE id = ?"
         )) {

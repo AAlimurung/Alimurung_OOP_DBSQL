@@ -124,14 +124,13 @@ public class HelloApplication extends Application {
         hbSignIn.setAlignment(Pos.CENTER);
 
 //-------------RETRIEVE DATA-------------
-        //sign in kay log in, so retrieval gagi
         btnSignIn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 String username = tfUsername.getText();
                 String password = pfPassword.getText();
 
-                if(retrieveThyBlessings.ifValid(username, password)>0){
+                if(SQLMethods.ifValid(username, password)>0){
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
                         try {
                             Scene scene = new Scene(loader.load());
@@ -145,32 +144,12 @@ public class HelloApplication extends Application {
         });
 
 //-------------INSERT DATA-------------
-        //sa kani kay log in, pero sign up siya, so inserting record TT
         btnSignUp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 String username = tfUsername.getText();
                 String password = pfPassword.getText();
-
-                //try block can have this kind of condition para diretso ra siyag catch
-                try(Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
-                        "INSERT INTO statusers (username, password) VALUES (?, ?)"
-                )) {
-                    //insert thy data
-                    st.setString(1, username);
-                    st.setString(2, password);
-
-                    //para ma-upload sa db
-                    int rowsInserted = st.executeUpdate();
-
-                    //check if ang rows kay dili null
-                    if(rowsInserted > 0){
-                        //extra message
-                        System.out.println("insertion g");
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                SQLMethods.insertData(username, password);
                 actionTarget.setText("Successfully registered");
                 actionTarget.setOpacity(1);
             }

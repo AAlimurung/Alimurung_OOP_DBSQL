@@ -5,7 +5,7 @@ import com.example.csit228f2_2.MySQLConnector;
 import java.sql.*;
 
 public class retrieveThyBlessings {
-    public static void retrieveData(){
+    public static void retrieveData(String name, String password){
         //try block can have this kind of condition para diretso ra siyag catch
         try(Connection c = MySQLConnector.getConnection(); Statement st = c.createStatement()) {
             String selectaQuery = "SELECT * FROM statusers";
@@ -14,9 +14,9 @@ public class retrieveThyBlessings {
             //print tanan data through iteration
             while(report.next()){
                 int id = report.getInt("id");
-                String name=report.getString("name");
-                String email=report.getString("email");
-                System.out.println(id+" "+ name+" "+email);
+                name = report.getString("username");
+                password = report.getString("password");
+                System.out.println(id+" "+ name+" "+ password);
 
             }
         } catch (SQLException e) {

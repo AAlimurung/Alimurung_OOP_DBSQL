@@ -6,17 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class insertSaBrain {
-    public static void insertData(){
+    public static void insertData(String username, String password){
         //try block can have this kind of condition para diretso ra siyag catch
         try(Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
                 "INSERT INTO statusers (username, password) VALUES (?, ?)"
         )) {
-//            String name = "Ree Ash";
-//            String email = "ironoshizuku@gmail.com";
-//
-//            //insert thy data
-//            st.setString(1, name);
-//            st.setString(2, email);
+            //insert thy data
+            st.setString(1, username);
+            st.setString(2, password);
 
             //para ma-upload sa db
             int rowsInserted = st.executeUpdate();
@@ -29,6 +26,10 @@ public class insertSaBrain {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    static int doubleChecker(String name, String pass){
+        return 0;
     }
 //    public static void main(String[] args) {}
 }
