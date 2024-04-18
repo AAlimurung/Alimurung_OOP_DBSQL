@@ -27,6 +27,7 @@ public class SQLMethods {
     }
 
 //---------INSERTION------------
+    //experiment: password hashing
     public static void insertData(String username, String password){
         try(Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
                 "INSERT INTO qelusers (username, password) VALUES (?, ?)"
@@ -148,10 +149,34 @@ public class SQLMethods {
     }
 
     //---------UPDATE------------
+    public static void updateData(String name, String pass) {
+        //try block can have this kind of condition para auto-close
+        try (Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
+                "UPDATE qelusers SET username = ?, password = ? WHERE id = ?"
+        )) {
+            int aideeUpdate = 2;
+            //insert thy data
+            st.setString(1, name);
+            st.setString(2, pass);
+            st.setInt(3, aideeUpdate);
+
+            //for updating data later
+            int rowsUpdated = st.executeUpdate();
+
+            //check if ang rows kay dili null
+            if (rowsUpdated > 0) {
+                //extra message
+                System.out.println("update inyong label");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void updateUsername(String name) {
         //try block can have this kind of condition para auto-close
         try (Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
-                "UPDATE users SET name = ? WHERE id = ?"
+                "UPDATE qelusers SET username = ? WHERE id = ?"
         )) {
             int aideeUpdate = 2;
             //insert thy data
@@ -174,7 +199,7 @@ public class SQLMethods {
     public static void updatePassword(String pass) {
         //try block can have this kind of condition para auto-close
         try (Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
-                "UPDATE users SET password = ? WHERE id = ?"
+                "UPDATE qelusers SET password = ? WHERE id = ?"
         )) {
             int aideeUpdate = 2;
             //insert thy data

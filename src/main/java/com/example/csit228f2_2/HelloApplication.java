@@ -144,16 +144,13 @@ public class HelloApplication extends Application {
         });
 
 //-------------INSERT DATA-------------
-//        btnSignUp.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {}
-//        });
         btnSignUp.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 String username = tfUsername.getText();
                 String password = pfPassword.getText();
-                System.out.println("double");
+
+                //if na-double click
                 if(mouseEvent.getClickCount() == 2){
                     SQLMethods.doubleChecker(username, password);
 
@@ -178,9 +175,11 @@ public class HelloApplication extends Application {
         });
 
         //---------------UPDATE--------------
-
+        //i still don't have my front-end of this
 
 //---------------DELETE--------------
+        //same goes to this TT
+
         EventHandler<KeyEvent> fieldChange = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent actionEvent) {
