@@ -36,11 +36,11 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         getConnection();
         launch();
-        createTbl.create();
     }
 
     @Override
     public void start(Stage stage) throws Exception {
+        SQLMethods.create();
         users = new ArrayList<>();
 //        // LOAD USERS
 //        users.add(new User("tsgtest", "123456"));
@@ -144,18 +144,41 @@ public class HelloApplication extends Application {
         });
 
 //-------------INSERT DATA-------------
-        btnSignUp.setOnAction(new EventHandler<ActionEvent>() {
+//        btnSignUp.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {}
+//        });
+        btnSignUp.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(ActionEvent actionEvent) {
+            public void handle(MouseEvent mouseEvent) {
                 String username = tfUsername.getText();
                 String password = pfPassword.getText();
-                SQLMethods.insertData(username, password);
-                actionTarget.setText("Successfully registered");
-                actionTarget.setOpacity(1);
+                System.out.println("double");
+                if(mouseEvent.getClickCount() == 2){
+                    SQLMethods.doubleChecker(username, password);
+
+                    if(SQLMethods.doubleChecker(username, password) > 0){
+                        System.out.println("Registered already");
+                    } else {
+                        SQLMethods.insertData(username, password);
+                        actionTarget.setText("Successfully registered");
+                        actionTarget.setOpacity(1);
+                    }
+                } else{
+                    SQLMethods.nullField(username, password);
+                    if(SQLMethods.nullField(username, password) > 0){
+                        System.out.println("Empty Fields");
+                    } else{
+                        SQLMethods.insertData(username, password);
+                        actionTarget.setText("Successfully registered");
+                        actionTarget.setOpacity(1);
+                    }
+                }
             }
         });
 
         //---------------UPDATE--------------
+
 
 //---------------DELETE--------------
         EventHandler<KeyEvent> fieldChange = new EventHandler<KeyEvent>() {
