@@ -3,10 +3,8 @@ package com.example.csit228f2_2;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
@@ -34,14 +32,6 @@ import static com.example.csit228f2_2.MySQLConnector.getConnection;
 
 public class HelloApplication extends Application {
     public static List<User> users;
-    @FXML
-    Button btnShow;
-    @FXML
-    Button btnToSignUp;
-    @FXML
-    Button btnSignIn;
-    @FXML
-    TextField tfPassword;
 
     public static void main(String[] args) {
         getConnection();
@@ -50,9 +40,8 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        SQLMethods.create();
-
-        Parent loader = FXMLLoader.load(getClass().getResource("welcome-view.fxml"));
+        SQLMethods.createUsers();
+        users = new ArrayList<>();
 //        // LOAD USERS
 //        users.add(new User("tsgtest", "123456"));
 //        users.add(new User("jayvince", "secret"));
@@ -96,7 +85,23 @@ public class HelloApplication extends Application {
         grid.add(tfPassword, 1, 2);
         tfPassword.setVisible(false);
         grid.add(hbShow, 2, 2);
+        btnShow.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent actionEvent) {
+                tfPassword.setText(pfPassword.getText());
+                tfPassword.setVisible(true);
+                pfPassword.setVisible(false);
+                grid.add(new Button("Hello"), 4,4);
+            }
+        });
 
+        btnShow.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                tfPassword.setVisible(false);
+                pfPassword.setVisible(true);
+            }
+        });
 
         String username = tfUsername.getText();
         String password = pfPassword.getText();
@@ -118,24 +123,7 @@ public class HelloApplication extends Application {
         hbSignIn.getChildren().add(btnSignUp);
         hbSignIn.setAlignment(Pos.CENTER);
 
-        btnShow.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent actionEvent) {
-                tfPassword.setText(pfPassword.getText());
-                tfPassword.setVisible(true);
-                pfPassword.setVisible(false);
-                grid.add(new Button("Hello"), 4,4);
-            }
-        });
-
-        btnShow.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                tfPassword.setVisible(false);
-                pfPassword.setVisible(true);
-            }
-        });
-
+//-------------RETRIEVE DATA-------------
         btnSignIn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -186,6 +174,12 @@ public class HelloApplication extends Application {
             }
         });
 
+        //---------------UPDATE--------------
+        //i still don't have my front-end of this
+
+//---------------DELETE--------------
+        //same goes to this TT
+
         EventHandler<KeyEvent> fieldChange = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent actionEvent) {
@@ -199,17 +193,5 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(pnMain, 700, 560);
         stage.setScene(scene);
         stage.show();
-
-
-//-------------RETRIEVE DATA-------------
-
-
-        //---------------UPDATE--------------
-        //i still don't have my front-end of this
-
-//---------------DELETE--------------
-        //same goes to this TT
-
-
     }
 }

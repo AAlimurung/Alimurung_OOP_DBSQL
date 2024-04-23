@@ -19,9 +19,9 @@
                   <VBox layoutX="83.0" layoutY="226.0" prefHeight="51.0" prefWidth="285.0">
                      <children>
                         <Label fx:id="lblPassword" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="65.0" text="Password:" />
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="184.0">
+                        <HBox fx:id="hboxPass" alignment="CENTER" prefHeight="100.0" prefWidth="184.0">
                            <children>
-                              <PasswordField prefHeight="26.0" prefWidth="188.0" />
+                              <PasswordField fx:id="pfPassword" prefHeight="26.0" prefWidth="188.0" />
                               <Button fx:id="btnShow" mnemonicParsing="false" text="=" />
                            </children></HBox>
                      </children>
@@ -32,15 +32,15 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="241.0">
                <children>
-                  <Label layoutX="57.0" layoutY="171.0" prefHeight="67.0" prefWidth="160.0" text="Don't have an account?">
-                     <font>
-                        <Font size="15.0" />
-                     </font></Label>
                   <Label fx:id="lblSignUp" layoutX="32.0" layoutY="127.0" prefHeight="67.0" prefWidth="209.0" text="Hello, Tomodachi!" textAlignment="CENTER">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </Label>
+                  <Label layoutX="57.0" layoutY="171.0" prefHeight="67.0" prefWidth="160.0" text="Don't have an account?">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
                   <Button fx:id="btnToSignUp" layoutX="101.0" layoutY="238.0" mnemonicParsing="false" text="Register" />
                </children>
             </AnchorPane>

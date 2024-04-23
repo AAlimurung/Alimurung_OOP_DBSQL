@@ -19,7 +19,7 @@ public class MySQLConnector {
             //identify the url, uname, and pwd
             c = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
-            System.out.println("ohayo sekai good morning world");
+            System.out.println("Connected");
         }catch (ClassNotFoundException | SQLException e){
 //            throw new RuntimeException();
             e.printStackTrace();

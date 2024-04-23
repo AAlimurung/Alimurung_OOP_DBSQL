@@ -7,31 +7,56 @@ public class SQLMethods {
     public static int pass_Num;
 
     //----------CREATION------------
-    public static void create(){
+    public static void createUsers(){
         //try block can have this kind of condition para diretso ra auto-close
-        try(Connection c = MySQLConnector.getConnection(); Statement st = c.createStatement()) {
+        try(Connection c = MySQLConnector.getConnection()) {
+            c.setAutoCommit(false);
 
-            //create thy query
-            String createTblQuery = "CREATE TABLE IF NOT EXISTS tblcharaUsers (" +
-                    "id INT AUTO_INCREMENT PRIMARY KEY," +
-                    "username VARCHAR(50) NOT NULL," +
-                    "password VARCHAR(250) NOT NULL)";
+            try(Statement st = c.createStatement()){
+                String createTblUsers = "CREATE TABLE IF NOT EXISTS finusers (" +
+                        "userID INT AUTO_INCREMENT PRIMARY KEY," +
+                        "username VARCHAR(50) NOT NULL," +
+                        "password VARCHAR(250) NOT NULL)";
+                String createTblWatch = "CREATE TABLE IF NOT EXISTS watchlist(" +
+                        "watchID INT AUTO_INCREMENT PRIMARY KEY," +
+                        "watchMov TEXT(9999) NOT NULL," +
+                        "watchProg VARCHAR(300) NOT NULL" +
+                        "userID INT," +
+                        "FOREIGN KEY (userID) REFERENCES finusers(userID))"; //constraint
 
-            String createTblArts = "CREATE TABLE IF NOT EXISTS tblartifacts(" +
-                    "artID INT AUTO_INCREMENT PRIMARY KEY" +
-                    "artifactSands VARCHAR(9999) NOT NULL" +
-                    "artifactGoblet VARCHAR(9999) NOT NULL" +
-                    "artifactCirclet VARCHAR(9999) NOT NULL" +
-                    "artifactSet VARCHAR(99999) NOT NULL)";
+                //execute query
+                st.execute(createTblUsers);
+                st.execute(createTblWatch);
 
-            //execute query
-            st.execute(createTblQuery);
-            //extra message
-            System.out.println("Finished furnishing: Table");
+                c.commit();
+                //prompt message
+                System.out.println("Finished furnishing: Table");
+            } catch (SQLException e){
+                c.rollback();
+                e.printStackTrace();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+//    public static void createArtifacts(){
+//        try(Connection c = MySQLConnector.getConnection(); Statement st = c.createStatement()) {
+//            String createTblArts = "CREATE TABLE IF NOT EXISTS tblartifacts(" +
+//                    "artID INT AUTO_INCREMENT PRIMARY KEY" +
+//                    "artifactSands VARCHAR(9999) NOT NULL" +
+//                    "artifactGoblet VARCHAR(9999) NOT NULL" +
+//                    "artifactCirclet VARCHAR(9999) NOT NULL" +
+//                    "artifactSet VARCHAR(99999) NOT NULL)";
+//
+//            //execute query
+//            st.execute(createTblArts);
+//            //extra message
+//            System.out.println("Finished furnishing: Table");
+//        } catch (SQLException e){
+//            e.printStackTrace();
+//        }
+//    }
 
 //---------INSERTION------------
     //experiment: password hashing

@@ -8,7 +8,7 @@
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
-            <Button layoutX="14.0" layoutY="358.0" mnemonicParsing="false" text="&lt;-" />
+            <Button fx:id="btnBackToLogin" layoutX="14.0" layoutY="358.0" mnemonicParsing="false" text="&lt;-" />
             <Label layoutX="26.0" layoutY="90.0" text="SIGN UP">
                <font>
                   <Font size="42.0" />
@@ -17,10 +17,11 @@
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
-            <Label layoutX="82.0" layoutY="181.0" text="Label" />
+            <Label fx:id="lblSignUpPass" layoutX="82.0" layoutY="181.0" text="Password" />
             <TextField layoutX="150.0" layoutY="135.0" />
-            <Label layoutX="82.0" layoutY="117.0" text="Label" />
+            <Label fx:id="lblSignUpUsername" layoutX="82.0" layoutY="117.0" text="Username:" />
             <TextField layoutX="150.0" layoutY="211.0" />
+            <Button fx:id="btnSignUp" layoutX="195.0" layoutY="279.0" mnemonicParsing="false" text="Sign Up" />
          </children></AnchorPane>
   </items>
 </SplitPane>
