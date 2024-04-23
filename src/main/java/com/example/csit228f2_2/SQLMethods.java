@@ -12,10 +12,17 @@ public class SQLMethods {
         try(Connection c = MySQLConnector.getConnection(); Statement st = c.createStatement()) {
 
             //create thy query
-            String createTblQuery = "CREATE TABLE IF NOT EXISTS qelusers (" +
+            String createTblQuery = "CREATE TABLE IF NOT EXISTS tblcharaUsers (" +
                     "id INT AUTO_INCREMENT PRIMARY KEY," +
                     "username VARCHAR(50) NOT NULL," +
                     "password VARCHAR(250) NOT NULL)";
+
+            String createTblArts = "CREATE TABLE IF NOT EXISTS tblartifacts(" +
+                    "artID INT AUTO_INCREMENT PRIMARY KEY" +
+                    "artifactSands VARCHAR(9999) NOT NULL" +
+                    "artifactGoblet VARCHAR(9999) NOT NULL" +
+                    "artifactCirclet VARCHAR(9999) NOT NULL" +
+                    "artifactSet VARCHAR(99999) NOT NULL)";
 
             //execute query
             st.execute(createTblQuery);
@@ -30,7 +37,7 @@ public class SQLMethods {
     //experiment: password hashing
     public static void insertData(String username, String password){
         try(Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
-                "INSERT INTO qelusers (username, password) VALUES (?, ?)"
+                "INSERT INTO tblcharaUsers (username, password) VALUES (?, ?)"
         )) {
             //insert thy data
             st.setString(1, username);
@@ -54,7 +61,7 @@ public class SQLMethods {
     //else: proceed as usual
     static int doubleChecker(String name, String pass){
         try(Connection c = MySQLConnector.getConnection(); Statement st = c.createStatement()) {
-            String selectaQuery = "SELECT * FROM qelusers";
+            String selectaQuery = "SELECT * FROM tblcharaUsers";
             ResultSet report = st.executeQuery(selectaQuery);
             while(report.next()){
                 System.out.println(report.getString("username"));
@@ -79,7 +86,7 @@ public class SQLMethods {
     //else: proceed as usual
     static int nullField(String name, String pass){
         try(Connection c = MySQLConnector.getConnection(); Statement st = c.createStatement()) {
-            String selectaQuery = "SELECT * FROM qelusers";
+            String selectaQuery = "SELECT * FROM tblcharaUsers";
             ResultSet report = st.executeQuery(selectaQuery);
 
             while(report.next()){

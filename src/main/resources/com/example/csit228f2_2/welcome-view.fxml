@@ -1,14 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.csit228f2_2.HelloController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane fx:id="pnMain" prefHeight="433.0" prefWidth="667.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csit228f2_2.welcomeView">
+   <children>
+      <SplitPane dividerPositions="0.6057692307692306" prefHeight="433.0" prefWidth="667.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="lblSignIn" layoutX="58.0" layoutY="101.0" text="Sign In to Account" textAlignment="CENTER">
+                     <font>
+                        <Font size="35.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tfUsername" layoutX="123.0" layoutY="191.0" prefHeight="26.0" prefWidth="188.0" />
+                  <VBox layoutX="83.0" layoutY="226.0" prefHeight="51.0" prefWidth="285.0">
+                     <children>
+                        <Label fx:id="lblPassword" alignment="TOP_LEFT" prefHeight="18.0" prefWidth="65.0" text="Password:" />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="184.0">
+                           <children>
+                              <PasswordField prefHeight="26.0" prefWidth="188.0" />
+                              <Button fx:id="btnShow" mnemonicParsing="false" text="=" />
+                           </children></HBox>
+                     </children>
+                  </VBox>
+                  <Label fx:id="lblUsername" layoutX="89.0" layoutY="162.0" text="Username:" />
+                  <Button fx:id="btnSignIn" layoutX="189.0" layoutY="311.0" mnemonicParsing="false" text="Sign In" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="241.0">
+               <children>
+                  <Label layoutX="57.0" layoutY="171.0" prefHeight="67.0" prefWidth="160.0" text="Don't have an account?">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <Label fx:id="lblSignUp" layoutX="32.0" layoutY="127.0" prefHeight="67.0" prefWidth="209.0" text="Hello, Tomodachi!" textAlignment="CENTER">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnToSignUp" layoutX="101.0" layoutY="238.0" mnemonicParsing="false" text="Register" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
 </AnchorPane>
