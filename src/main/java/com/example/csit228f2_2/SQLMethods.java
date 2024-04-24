@@ -30,7 +30,7 @@ public class SQLMethods {
 
                 c.commit();
                 //prompt message
-                System.out.println("Finished furnishing: Table");
+                System.out.println("Finished furnishing: Tables");
             } catch (SQLException e){
                 c.rollback();
                 e.printStackTrace();
@@ -62,7 +62,7 @@ public class SQLMethods {
     //experiment: password hashing
     public static void insertData(String username, String password){
         try(Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
-                "INSERT INTO tblcharaUsers (username, password) VALUES (?, ?)"
+                "INSERT INTO finusers (username, password) VALUES (?, ?)"
         )) {
             //insert thy data
             st.setString(1, username);
@@ -74,7 +74,7 @@ public class SQLMethods {
             //check if ang rows kay dili null
             if(rowsInserted > 0){
                 //extra message
-                System.out.println("insertion g");
+                System.out.println("User registered successfully");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -86,7 +86,7 @@ public class SQLMethods {
     //else: proceed as usual
     static int doubleChecker(String name, String pass){
         try(Connection c = MySQLConnector.getConnection(); Statement st = c.createStatement()) {
-            String selectaQuery = "SELECT * FROM tblcharaUsers";
+            String selectaQuery = "SELECT * FROM finusers";
             ResultSet report = st.executeQuery(selectaQuery);
             while(report.next()){
                 System.out.println(report.getString("username"));
@@ -111,13 +111,14 @@ public class SQLMethods {
     //else: proceed as usual
     static int nullField(String name, String pass){
         try(Connection c = MySQLConnector.getConnection(); Statement st = c.createStatement()) {
-            String selectaQuery = "SELECT * FROM tblcharaUsers";
+            String selectaQuery = "SELECT * FROM finusers";
             ResultSet report = st.executeQuery(selectaQuery);
 
             while(report.next()){
                 System.out.println(report.getString("username"));
                 if(name.isBlank() && name.equals(report.getString("username"))){
                     System.out.println("Empty field");
+                    return 1;
                 }
 
                 System.out.println(report.getString("password"));
@@ -137,7 +138,7 @@ public class SQLMethods {
     public static void retrieveData(String name, String password){
         //try block can have this kind of condition para diretso ra siyag catch
         try(Connection c = MySQLConnector.getConnection(); Statement st = c.createStatement()) {
-            String selectaQuery = "SELECT * FROM qelusers";
+            String selectaQuery = "SELECT * FROM finusers";
             ResultSet report = st.executeQuery(selectaQuery);
 
             //print tanan data through iteration
@@ -158,7 +159,7 @@ public class SQLMethods {
     //else: return 0, clear fields, and prompt user
     static int ifValid(String name, String pass){
         try(Connection c = MySQLConnector.getConnection(); Statement st = c.createStatement()) {
-            String selectaQuery = "SELECT * FROM qelusers";
+            String selectaQuery = "SELECT * FROM finusers";
             ResultSet report = st.executeQuery(selectaQuery);
 
             //print tanan data through iteration
@@ -184,7 +185,7 @@ public class SQLMethods {
     public static void updateData(String name, String pass) {
         //try block can have this kind of condition para auto-close
         try (Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
-                "UPDATE qelusers SET username = ?, password = ? WHERE id = ?"
+                "UPDATE finusers SET username = ?, password = ? WHERE userID = ?"
         )) {
             int aideeUpdate = 2;
             //insert thy data
@@ -208,7 +209,7 @@ public class SQLMethods {
     public static void updateUsername(String name) {
         //try block can have this kind of condition para auto-close
         try (Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
-                "UPDATE qelusers SET username = ? WHERE id = ?"
+                "UPDATE finusers SET username = ? WHERE userID = ?"
         )) {
             int aideeUpdate = 2;
             //insert thy data
@@ -231,7 +232,7 @@ public class SQLMethods {
     public static void updatePassword(String pass) {
         //try block can have this kind of condition para auto-close
         try (Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
-                "UPDATE qelusers SET password = ? WHERE id = ?"
+                "UPDATE finusers SET password = ? WHERE userID = ?"
         )) {
             int aideeUpdate = 2;
             //insert thy data
@@ -251,11 +252,23 @@ public class SQLMethods {
         }
     }
 
+    //update the status of the watchlist
+    public static void updateList(String prog){
+        try (Connection c = MySQLConnector.getConnection(); PreparedStatement st = c.prepareStatement(
+                "UPDATE finusers SET progress = ? WHERE watchID = ?"
+        )){
+            int idUpdate = 2;
+//            st.setString();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     //---------DELETE------------
     public static void deleteData(String username, String password){
         //try block can have this kind of condition para diretso ra siyag catch
         try(Connection c = MySQLConnector .getConnection(); PreparedStatement st = c.prepareStatement(
-                "DELETE FROM users WHERE username = ?"
+                "DELETE FROM finusers WHERE userID = ?"
         )) {
             int usernameToDelete = 2;
 

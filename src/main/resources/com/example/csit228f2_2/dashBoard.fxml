@@ -15,7 +15,7 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <VBox prefHeight="213.0" prefWidth="90.0">
+                        <VBox prefHeight="133.0" prefWidth="90.0">
                            <children>
                               <Button fx:id="btnUpdateList" mnemonicParsing="false" text="Edit" />
                               <Button fx:id="btnAddToList" mnemonicParsing="false" text="Add" />
@@ -26,8 +26,14 @@
                      </children></AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <TextArea prefHeight="329.0" prefWidth="248.0" />
+                        <TableView fx:id="tblShow" layoutX="37.0" layoutY="-1.0" prefHeight="330.0" prefWidth="219.0">
+                          <columns>
+                            <TableColumn fx:id="colWatchList" prefWidth="114.40003967285156" text="WATCHLIST" />
+                            <TableColumn fx:id="colWatchProgress" prefWidth="102.39996337890625" text="STATUS" />
+                          </columns>
+                        </TableView>
                         <Button fx:id="btnSearchList" layoutX="424.0" layoutY="14.0" mnemonicParsing="false" text="Search" />
+                        <Spinner layoutX="326.0" layoutY="56.0" />
                      </children></AnchorPane>
               </items>
             </SplitPane>

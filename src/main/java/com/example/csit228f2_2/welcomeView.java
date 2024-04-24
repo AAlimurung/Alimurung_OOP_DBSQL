@@ -43,15 +43,12 @@ public class welcomeView /*extends HelloApplication*/ implements Initializable {
         tfPassword.setVisible(false);
 
         //for showing password (without hashing)
-        btnShow.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent actionEvent) {
-                tfPassword.setText(pfPassword.getText());
-                tfPassword.setVisible(true);
+        btnShow.setOnMousePressed(actionEvent -> {
+            tfPassword.setText(pfPassword.getText());
+            tfPassword.setVisible(true);
 //                pfPassword.setVisible(false);
-                hboxPass.getChildren().add(tfPassword);
-                hboxPass.getChildren().remove(pfPassword);
-            }
+            hboxPass.getChildren().add(tfPassword);
+            hboxPass.getChildren().remove(pfPassword);
         });
 
         btnShow.setOnMouseReleased(new EventHandler<MouseEvent>() {
@@ -69,10 +66,12 @@ public class welcomeView /*extends HelloApplication*/ implements Initializable {
                 String password = pfPassword.getText();
 
                 if(SQLMethods.ifValid(username, password)>0){
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("dashBoard.fxml"));
                     try {
+                        Stage stage = (Stage)btnSignIn.getScene().getWindow();
+                        stage.close();
+
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("dashBoard.fxml"));
                         Scene scene = new Scene(loader.load());
-                        Stage stage = new Stage();
                         stage.setScene(scene);
                         stage.show();
                     } catch (IOException e) {
@@ -85,12 +84,15 @@ public class welcomeView /*extends HelloApplication*/ implements Initializable {
         btnToSignUp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("registerView.fxml"));
                 try{
+                    Stage st = (Stage) btnSignIn.getScene().getWindow();
+                    st.close();
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("register-view.fxml"));
                     Scene sc = new Scene(loader.load());
-                    Stage st = new Stage();
                     st.setScene(sc);
                     st.show();
+//                    st.close();
                 }catch(IOException e){
                     throw new RuntimeException(e);
                 }
