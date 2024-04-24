@@ -41,6 +41,8 @@ public class welcomeView /*extends HelloApplication*/ implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         TextField tfPassword = new TextField();
         tfPassword.setVisible(false);
+
+        //for showing password (without hashing)
         btnShow.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent actionEvent) {
@@ -49,15 +51,12 @@ public class welcomeView /*extends HelloApplication*/ implements Initializable {
 //                pfPassword.setVisible(false);
                 hboxPass.getChildren().add(tfPassword);
                 hboxPass.getChildren().remove(pfPassword);
-//                grid.add(new Button("Hello"), 4,4);
             }
         });
 
         btnShow.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-//                tfPassword.setVisible(false);
-//                pfPassword.setVisible(true);
                 hboxPass.getChildren().add(pfPassword);
                 hboxPass.getChildren().remove(tfPassword);
             }
@@ -66,11 +65,11 @@ public class welcomeView /*extends HelloApplication*/ implements Initializable {
         btnSignIn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                String username = tfUsername.getText();
+                username = tfUsername.getText();
                 String password = pfPassword.getText();
 
                 if(SQLMethods.ifValid(username, password)>0){
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("dashBoard.fxml"));
                     try {
                         Scene scene = new Scene(loader.load());
                         Stage stage = new Stage();
@@ -79,6 +78,21 @@ public class welcomeView /*extends HelloApplication*/ implements Initializable {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
+                }
+            }
+        });
+
+        btnToSignUp.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("registerView.fxml"));
+                try{
+                    Scene sc = new Scene(loader.load());
+                    Stage st = new Stage();
+                    st.setScene(sc);
+                    st.show();
+                }catch(IOException e){
+                    throw new RuntimeException(e);
                 }
             }
         });
