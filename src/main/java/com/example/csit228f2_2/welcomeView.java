@@ -18,7 +18,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class welcomeView extends HelloApplication implements Initializable {
+public class welcomeView /*extends HelloApplication*/ implements Initializable {
+    private static String username;
+//    private static String password;
+    private static int userID;
     @FXML
     Button btnShow;
     @FXML
@@ -33,6 +36,7 @@ public class welcomeView extends HelloApplication implements Initializable {
     AnchorPane pnMain;
     @FXML
     HBox hboxPass;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         TextField tfPassword = new TextField();

@@ -20,7 +20,7 @@ public class SQLMethods {
                 String createTblWatch = "CREATE TABLE IF NOT EXISTS watchlist(" +
                         "watchID INT AUTO_INCREMENT PRIMARY KEY," +
                         "watchMov TEXT(9999) NOT NULL," +
-                        "watchProg VARCHAR(300) NOT NULL" +
+                        "watchProg VARCHAR(300) NOT NULL," +
                         "userID INT," +
                         "FOREIGN KEY (userID) REFERENCES finusers(userID))"; //constraint
 

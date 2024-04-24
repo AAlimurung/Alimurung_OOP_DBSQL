@@ -20,6 +20,7 @@ public class Main extends Application {
             Scene sc = new Scene(loader.load());
             stage.setScene(sc);
             stage.setResizable(false);
+            stage.show();
         }catch (IOException e){
             throw new RuntimeException();
         }
