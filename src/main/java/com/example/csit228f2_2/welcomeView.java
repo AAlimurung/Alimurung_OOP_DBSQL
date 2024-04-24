@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -19,9 +20,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class welcomeView /*extends HelloApplication*/ implements Initializable {
-    private static String username;
+    public static String username;
 //    private static String password;
-    private static int userID;
+    public static int userID;
+
     @FXML
     Button btnShow;
     @FXML
@@ -36,6 +38,8 @@ public class welcomeView /*extends HelloApplication*/ implements Initializable {
     AnchorPane pnMain;
     @FXML
     HBox hboxPass;
+    @FXML
+    Label lblPrompt;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -77,6 +81,8 @@ public class welcomeView /*extends HelloApplication*/ implements Initializable {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
+                } else {
+                    lblPrompt.setText("Wrong credentials");
                 }
             }
         });

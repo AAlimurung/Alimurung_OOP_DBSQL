@@ -40,24 +40,6 @@ public class SQLMethods {
         }
     }
 
-//    public static void createArtifacts(){
-//        try(Connection c = MySQLConnector.getConnection(); Statement st = c.createStatement()) {
-//            String createTblArts = "CREATE TABLE IF NOT EXISTS tblartifacts(" +
-//                    "artID INT AUTO_INCREMENT PRIMARY KEY" +
-//                    "artifactSands VARCHAR(9999) NOT NULL" +
-//                    "artifactGoblet VARCHAR(9999) NOT NULL" +
-//                    "artifactCirclet VARCHAR(9999) NOT NULL" +
-//                    "artifactSet VARCHAR(99999) NOT NULL)";
-//
-//            //execute query
-//            st.execute(createTblArts);
-//            //extra message
-//            System.out.println("Finished furnishing: Table");
-//        } catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//    }
-
 //---------INSERTION------------
     //experiment: password hashing
     public static void insertData(String username, String password){
@@ -106,7 +88,7 @@ public class SQLMethods {
         return 0;
     }
 
-    //check if textfields are null
+    //check if textfields are null - can be set in the controller
     //if null: return 1, and do not store the second data to database; prompt user too
     //else: proceed as usual
     static int nullField(String name, String pass){
@@ -132,6 +114,23 @@ public class SQLMethods {
         }
 
         return 0;
+    }
+
+    //insert data to table
+    public static void insertList(String video, String prog){
+        try(Connection c = MySQLConnector.getConnection()){
+            c.setAutoCommit(false);
+            try( PreparedStatement st = c.prepareStatement(
+                    "INSERT INTO finusers (watchMov, watchProg) VALUES (?, ?)"
+            )){
+
+            }catch (SQLException e){
+                c.rollback();
+                e.printStackTrace();
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     //---------READ DATA------------

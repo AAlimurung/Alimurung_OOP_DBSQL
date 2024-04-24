@@ -27,6 +27,11 @@
                </children>
             </HBox>
             <Button fx:id="btnSignUp" layoutX="195.0" layoutY="279.0" mnemonicParsing="false" text="Sign Up" />
+            <Label fx:id="lblPrompt" layoutX="210.0" layoutY="342.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
          </children></AnchorPane>
   </items>
 </SplitPane>
